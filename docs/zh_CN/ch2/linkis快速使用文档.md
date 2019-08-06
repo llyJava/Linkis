@@ -59,7 +59,7 @@ public class UJESClientImplTestJ{
                 .maxConnectionSize(5)   //指定最大连接数，即最大并发数
                 .retryEnabled(false).readTimeout(30000)   //执行失败，是否允许重试
                 .setAuthenticationStrategy(new StaticAuthenticationStrategy())   //AuthenticationStrategy Linkis认证方式
-                .setAuthTokenKey("johnnwang").setAuthTokenValue("Abcd1234")))  //认证key，一般为用户名;  认证value，一般为用户名对应的密码
+                .setAuthTokenKey("${username}").setAuthTokenValue("${password}")))  //认证key，一般为用户名;  认证value，一般为用户名对应的密码
                 .setDWSVersion("v1").build();  //Linkis后台协议的版本，当前版本为v1
         
         // 2. 通过DWSClientConfig获取一个UJESClient
@@ -70,7 +70,7 @@ public class UJESClientImplTestJ{
                 .setCreator("LinkisClient-Test")  //creator，请求Linkis的客户端的系统名，用于做系统级隔离
                 .addExecuteCode("show tables")   //ExecutionCode 请求执行的代码
                 .setEngineType(JobExecuteAction.EngineType$.MODULE$.HIVE()) // 希望请求的Linkis的执行引擎类型，如Spark hive等
-                .setUser("johnnwang")   //User，请求用户；用于做用户级多租户隔离
+                .setUser("${username}")   //User，请求用户；用于做用户级多租户隔离
                 .build());
         System.out.println("execId: " + jobExecuteResult.getExecID() + ", taskId: " + jobExecuteResult.taskID());
         
